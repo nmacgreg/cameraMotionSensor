@@ -6,3 +6,17 @@ as video for as long as there's more motion detected, and for a configurable tim
 I've only been looking at the "motion" package for a few days, but it seems feature-complete and pretty easy to use.
 
 (although I have some questions.)
+
+
+$ pip install webthing
+(or maybe) 
+$ pip install webthing --user
+(or maybe) 
+$ sudo pip install webthing
+
+
+Maybe look at some examples: 
+[nmacgreg@its004nm2 dev]$ git clone git@github.com:mozilla-iot/webthing-python.git
+
+
+Guide to creating webthings: https://hacks.mozilla.org/2018/05/creating-web-things-with-python-node-js-and-java/
