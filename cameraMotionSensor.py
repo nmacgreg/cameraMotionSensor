@@ -10,7 +10,10 @@
 # event starts or stops
 
 
-from webthing import Action, Event, Property, Thing, Value, WebThingServer
+from webthing import (Action, Event, MultipleThings, Property, Thing, Value,
+                              WebThingServer)
+import logging
+
 
 # Define our thing
 
@@ -23,9 +26,10 @@ class MotionEvent(Event):
 # This is a motion sensor, based on a camera, and the software called "motion"
 class cameraMotionSensor(Thing):
     def __init__(self):
-        Thing.__init__(self, 'Motion Sensor', 'motionSensor', 'Camera Motion Sensor')
+        Thing.__init__(self, 'Motion Sensor', ['MotionSensor'], 'Garage Motion Sensor')
+        
 
-        self.motion_status = false # initialization
+        self.motion_status = False # initialization
 
          
         # https://iot.mozilla.org/wot/#property-resource
@@ -33,11 +37,11 @@ class cameraMotionSensor(Thing):
         self.add_property(
             Property(self,
              'motion',
-             Value(self.get_motion(status), self.set_motion),
+             Value(self.get_motion(), self.set_motion(self.motion_status)),
              metadata={
                  '@type': 'MotionProperty',
-                 'label': 'Motion Sensor',
-                 'description': 'state of motion',
+                 'label': 'Garage Motion Sensor',
+                 'description': 'Motion detection within the garage, via camera data',
                  'type': 'boolean',
 
              }))
@@ -47,31 +51,26 @@ class cameraMotionSensor(Thing):
 
     
     def set_motion(self,value):
-        self.motion_status = value  # if value == or value == false (maybe the values On or Off apply to to a motion sensor?
-
-
+        self.motion_status = value  # if value == or value == false (maybe the values On or Off apply to to a motion sensor? 
+        return self.motion_status
 
 
 def run_server():
-    # Create a thing that represents a humidity sensor
-    sensor = CPUTempSensor()
+    # Create a thing that represents a motion sensor
+    sensor = cameraMotionSensor()
 
     # If adding more than one thing, use MultipleThings() with a name.
     # In the single thing case, the thing's name will be broadcast.
-    server = WebThingServer(MultipleThings([sensor], 'CPUTempSensor'), port=8886)
+    server = WebThingServer(MultipleThings([sensor], 'cameraMotionSensor'), port=8885)
     try:
         logging.info('starting the server')
         server.start()
     except KeyboardInterrupt:
-        logging.debug('canceling the sensor update looping task')
-        sensor.cancel_update_level_task()
         logging.info('stopping the server')
         server.stop()
         logging.info('done')
 
 if __name__ == '__main__':
-    if not hasattr(psutil, "sensors_temperatures"):
-        sys.exit("platform not supported")
     logging.basicConfig(
         level=10,
         format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
