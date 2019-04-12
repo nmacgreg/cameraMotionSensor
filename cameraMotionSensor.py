@@ -25,9 +25,9 @@ class cameraMotionSensor(Thing):
     def __init__(self):
         Thing.__init__(self, 'Motion Sensor', 'motionSensor', 'Camera Motion Sensor')
 
-        status = self.get_status()
+        self.motion_status = false # initialization
 
-        
+         
         # https://iot.mozilla.org/wot/#property-resource
         # define the properties of our thing
         self.add_property(
@@ -35,6 +35,46 @@ class cameraMotionSensor(Thing):
              'motion',
              Value(self.get_motion(status), self.set_motion),
              metadata={
-                 'type': 'boolean',
+                 '@type': 'MotionProperty',
+                 'label': 'Motion Sensor',
                  'description': 'state of motion',
+                 'type': 'boolean',
+
              }))
+
+    def get_motion(self):
+        return self.motion_status
+
+    
+    def set_motion(self,value):
+        self.motion_status = value  # if value == or value == false (maybe the values On or Off apply to to a motion sensor?
+
+
+
+
+def run_server():
+    # Create a thing that represents a humidity sensor
+    sensor = CPUTempSensor()
+
+    # If adding more than one thing, use MultipleThings() with a name.
+    # In the single thing case, the thing's name will be broadcast.
+    server = WebThingServer(MultipleThings([sensor], 'CPUTempSensor'), port=8886)
+    try:
+        logging.info('starting the server')
+        server.start()
+    except KeyboardInterrupt:
+        logging.debug('canceling the sensor update looping task')
+        sensor.cancel_update_level_task()
+        logging.info('stopping the server')
+        server.stop()
+        logging.info('done')
+
+if __name__ == '__main__':
+    if not hasattr(psutil, "sensors_temperatures"):
+        sys.exit("platform not supported")
+    logging.basicConfig(
+        level=10,
+        format="%(asctime)s %(filename)s:%(lineno)s %(levelname)s %(message)s"
+    )
+    run_server()
+
