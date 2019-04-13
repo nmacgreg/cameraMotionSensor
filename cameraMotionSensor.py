@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # https://hacks.mozilla.org/2018/05/creating-web-things-with-python-node-js-and-java/
 # I want to create a binary Thing, that can exist in one of two modes: { Motion, No Motion } aka { True, False}
@@ -26,7 +26,7 @@ class MotionEvent(Event):
 # This is a motion sensor, based on a camera, and the software called "motion"
 class cameraMotionSensor(Thing):
     def __init__(self):
-        Thing.__init__(self, 'Motion Sensor', ['MotionSensor'], 'Garage Motion Sensor')
+        Thing.__init__(self, 'Motion Sensor', ['binarySensor'], 'Garage Motion Sensor')
         
 
         self.motion_status = False # initialization
