@@ -5,8 +5,11 @@ It supports a wide variety of cameras.  When motion is detected in the video str
 as video for as long as there's more motion detected, and for a configurable timeout after motion stops.
 I've only been looking at the "motion" package for a few days, but it seems feature-complete and pretty easy to use.
 
-(although I have some questions.)
-
+There's a glaring problem with this code.  It's quite inefficient.  All it does is awaken ever 3 seconds, and check
+for the existence of a file which is created or deleted by "motion".  And this only works because "motion" has 
+configuration allowing it to run commands at the start & end of a motion event, which I used to touch or delete
+the file.  This makes it easy to test this code.   However, I'd rather have "motion" run a curl command to PUT 
+directly against this Thing's API... but I can't figure out how!
 
 $ pip install webthing
 (or maybe) 
