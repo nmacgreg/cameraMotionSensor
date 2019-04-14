@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# Most helpful references: 
+# https://iot.mozilla.org/wot/
+# https://github.com/mrstegeman/virtual-things-adapter/blob/c94c0e239ff2051a794085905995c26764e83253/virtual-things-adapter.js
 
 from asyncio import sleep, CancelledError, get_event_loop
 from webthing import (Action, Event, MultipleThings, Property, Thing, Value,
@@ -25,7 +28,6 @@ class CameraMotionSensor(Thing):
                          'label': 'Motion',
                          'type': 'boolean',
                          'description': 'Motion detection based on camera data',
-                         #'readOnly': True,
                      }))
 
         logging.debug('starting the sensor update looping task')
