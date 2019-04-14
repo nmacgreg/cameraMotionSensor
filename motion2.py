@@ -13,7 +13,7 @@ class CameraMotionSensor(Thing):
     """A motion sensor based on motion detection triggered by a camera, which updates its measurement every few seconds."""
 
     def __init__(self):
-        Thing.__init__(self, 'Garage Motion Sensor', ['binarySensor'], 'Motion in the garage')
+        Thing.__init__(self, 'Motion Sensor', ['binarySensor'], 'Motion based on video camera detection')
 
         self.level = Value(False)
         self.add_property(
@@ -23,7 +23,7 @@ class CameraMotionSensor(Thing):
                      metadata={
                          '@type': 'BooleanProperty',
                          'label': 'Motion',
-                         'type': 'bool',
+                         'type': 'boolean',
                          'description': 'Motion detection based on camera data',
                          #'readOnly': True,
                      }))
