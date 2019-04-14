@@ -1,0 +1,11 @@
+[Unit]
+Description=Mozilla IoT Thing, motion detector glue for "motion"
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/dev/cameraMotionSensor/cameraMotionSensor.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
