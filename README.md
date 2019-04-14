@@ -9,7 +9,7 @@ There's a glaring problem with this code.  It's quite inefficient.  All it does 
 for the existence of a file which is created or deleted by "motion".  And this only works because "motion" has 
 configuration allowing it to run commands at the start & end of a motion event, which I used to touch or delete
 the file.  This makes it easy to test this code.   However, I'd rather have "motion" run a curl command to PUT 
-directly against this Thing's API... but I can't figure out how!
+directly against this Thing's API... but I can't figure out how!  If anybody knows how, I'd appreciate some help.
 
 $ pip install webthing
 (or maybe) 
