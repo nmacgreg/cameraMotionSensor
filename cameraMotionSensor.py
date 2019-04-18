@@ -39,7 +39,7 @@ class CameraMotionSensor(Thing):
             while True:
                 await sleep(3)
                 new_level = self.read_motion()
-                #logging.debug('setting motion detection: %s', new_level)
+                logging.debug('setting motion detection: %s', new_level)
                 self.level.notify_of_external_update(new_level)
         except CancelledError:
             # We have no cleanup to do on cancellation so we can just halt the
@@ -67,7 +67,7 @@ def run_server():
 
     # If adding more than one thing, use MultipleThings() with a name.
     # In the single thing case, the thing's name will be broadcast.
-    server = WebThingServer(MultipleThings([sensor], 'DepthDevice'), port=8885)
+    server = WebThingServer(MultipleThings([sensor], 'DepthDevice'), port=8884)
     try:
         logging.info('starting the server')
         server.start()
