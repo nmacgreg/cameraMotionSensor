@@ -23,3 +23,11 @@ Maybe look at some examples:
 
 
 Guide to creating webthings: https://hacks.mozilla.org/2018/05/creating-web-things-with-python-node-js-and-java/
+
+Oddness: I couldn't get the MIoT Gateway to find a second instance of this code, running on a different machine, but
+on the same hardcoded port number.   I had to hand-edit it, and change the port number.  Figure out whether that's a 
+problem with the Gateway, and maybe provide feedback, or a PR. 
+
+Ideas for improvement:
+* Figure out how to operate the API for this Thing; have "motion" operate the API
+* Create a configuration file, like /etc/cameraMotionSensor.conf, that defines the 
